@@ -147,3 +147,16 @@ Route::get('/delete2', function() {
 Route::get('/softdelete', function() {
     Post::find(3)->delete();
 });
+
+Route::get('/readsoftdelete', function() {
+    //$post = Post::find(5);
+    //return $post;
+
+
+    $post = Post::withTrashed()->where('is_admin',0)->get();
+    return $post;
+
+    // $post = Post::onlyTrashed()->where('is_admin',0)->get();
+    // return $post;
+
+});
