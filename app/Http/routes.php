@@ -1,4 +1,5 @@
 <?php
+use App\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,4 +69,62 @@ Route::get('/update', function () {
 Route::get('/delete', function () {
     $deleted = DB::delete('delete from posts where id = ?', [1]);
     return $deleted;
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| ELOQUENT
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/find', function () {
+    //$posts = Post::find(1);
+    $posts = Post::all();
+
+    //return $posts;
+    
+    foreach($posts as $post) {
+        return $post->title;
+    }
+});
+
+Route::get('/findwhere', function() {
+    //
+    $posts = Post::where('id',3)->orderBy('id', 'desc')->take(1)->get();
+    return $posts;
+
+});
+
+Route::get('/findmore', function () {
+    $posts = Post::findOrFail(3);
+
+    return $posts;
+
+    //$posts = Post::where('users_count','<',50)->firstOrFail();
+    
+
+
+});
+
+Route::get('/basicinsert', function() {
+    $post = new Post;
+
+    $post->title = 'new Eloquent title';
+    $post->content = 'wow Eloquent is really cool, lookat this content';
+
+    $post->save();
+});
+
+Route::get('/basicinsert2', function() {
+    $post = Post::find(1);
+
+    $post->title = 'new Eloquent title2';
+    $post->content = 'wow Eloquent is really cool, lookat this content';
+
+    $post->save();
+});
+
+Route::get('/create', function() {
+    Post::create(['title' => 'the create method', 'content' => 'WOW I\'am learning laravel']);
 });
