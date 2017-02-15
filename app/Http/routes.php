@@ -128,3 +128,18 @@ Route::get('/basicinsert2', function() {
 Route::get('/create', function() {
     Post::create(['title' => 'the create method', 'content' => 'WOW I\'am learning laravel']);
 });
+
+Route::get('/update', function() {
+    POST::where('id', 3)->where('is_admin', 0)->update(['title'=>'NEW PHP TITLE','content'=>'I love my instructor']);
+});
+
+Route::get('/delete', function() {
+    $post = Post::find(1);
+    $post->delete();
+});
+
+Route::get('/delete2', function() {
+    //Post::destroy(3);
+    //Post::where('is_admin', 0)->delete();
+    Post::destroy([4, 5]);
+});
