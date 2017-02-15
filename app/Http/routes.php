@@ -1,5 +1,6 @@
 <?php
 use App\Post;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -168,4 +169,15 @@ Route::get('/restore/{id}' ,function($id) {
 
 Route::get('/forcedelete/{id}', function($id) {
     Post::withTrashed()->where('id', $id)->forceDelete();
+});
+
+/*
+|--------------------------------------------------------------------------
+| ELOQUENT Relationships
+|--------------------------------------------------------------------------
+*/
+
+//One to One relationship
+Route::get('/user/{id}/post', function($id) {
+    return User::find($id)->post;
 });
