@@ -160,3 +160,12 @@ Route::get('/readsoftdelete', function() {
     // return $post;
 
 });
+
+Route::get('/restore/{id}' ,function($id) {
+    Post::withTrashed()->where('id', $id)->restore();
+
+});
+
+Route::get('/forcedelete/{id}', function($id) {
+    Post::withTrashed()->where('id', $id)->forceDelete();
+});
