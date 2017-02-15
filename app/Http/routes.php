@@ -179,5 +179,10 @@ Route::get('/forcedelete/{id}', function($id) {
 
 //One to One relationship
 Route::get('/user/{id}/post', function($id) {
-    return User::find($id)->post;
+    return User::find($id)->post->content;
+});
+
+
+Route::get('/post/{id}/user', function($id) {
+    return Post::find($id)->user->name;
 });
