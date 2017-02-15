@@ -10,11 +10,11 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+/*
 Route::get('/', function () {
     return view('welcome');
 });
-/*
+
 Route::get('/about', function () {
     return 'Hi about page';
 });
@@ -36,8 +36,36 @@ Route::get('admin/posts/example', array('as' => 'admin.home', function () {
 
 //Route::get('/posts/{id}', 'PostController@index');
 
-Route::resource('posts','PostController');
+//Route::resource('posts','PostController');
 
-Route::get('/contact', 'PostController@contact');
+//Route::get('/contact', 'PostController@contact');
 
-Route::get('post/{id}/{name}/{password}', 'PostController@show_post');
+//Route::get('post/{id}/{name}/{password}', 'PostController@show_post');
+
+/*
+|--------------------------------------------------------------------------
+| DATABASE Raw SQL Queries
+|--------------------------------------------------------------------------
+*/
+
+
+Route::get('/insert', function () {
+    DB::insert('insert into posts (title, content) values (?, ?)', ['PHP with Laravel', 'Laravel is the best thing happend to PHP']);
+});
+
+Route::get('/read', function () {
+    $results = DB::select('select * from posts where id=?', [1]);
+    foreach($results as $post) {
+        return $post->title;
+    }
+});
+
+Route::get('/update', function () {
+    $updated = DB::update('update posts set title = "Updated title" where id = ?', [1]);
+    return $updated;
+});
+
+Route::get('/delete', function () {
+    $deleted = DB::delete('delete from posts where id = ?', [1]);
+    return $deleted;
+});
