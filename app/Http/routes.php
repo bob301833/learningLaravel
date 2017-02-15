@@ -143,3 +143,7 @@ Route::get('/delete2', function() {
     //Post::where('is_admin', 0)->delete();
     Post::destroy([4, 5]);
 });
+
+Route::get('/softdelete', function() {
+    Post::find(3)->delete();
+});
