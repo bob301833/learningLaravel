@@ -12,11 +12,11 @@ use App\User;
 | and give it the controller to call when that URI is requested.
 |
 */
-/*
+
 Route::get('/', function () {
     return view('welcome');
 });
-
+/*
 Route::get('/about', function () {
     return 'Hi about page';
 });
@@ -182,7 +182,27 @@ Route::get('/user/{id}/post', function($id) {
     return User::find($id)->post->content;
 });
 
-
+//inverse
 Route::get('/post/{id}/user', function($id) {
     return Post::find($id)->user->name;
 });
+
+//One to Many relationship
+Route::get('/posts/{id}', function($id) {
+    $user = User::find($id);
+    foreach($user->posts as $post){
+        echo $post->title."<br>";
+    }
+});
+
+//Many to Many relationship
+Route::get('/user/{id}/role', function($id) {
+    // $user = User::find($id);
+    // foreach($user->roles as $role){
+    //     echo $role->name."<br>";
+    // }
+
+    $user = User::find($id)->roles()->orderBy('id','desc')->get();
+    return $user;
+});
+
