@@ -2,6 +2,7 @@
 use App\Post;
 use App\User;
 use App\Country;
+use App\Photo;
 
 /*
 |--------------------------------------------------------------------------
@@ -243,3 +244,8 @@ Route::get('post/photos/{id}' ,function($id){
     }
 });
 
+//Polymorphic Relations inverse
+Route::get('photo/{id}/owner', function($id){
+    $photo = Photo::findOrFail($id);
+    return $photo->imageable;
+});
