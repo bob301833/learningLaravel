@@ -3,7 +3,7 @@ use App\Post;
 use App\User;
 use App\Country;
 use App\Photo;
-
+use App\Tag;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -249,3 +249,23 @@ Route::get('photo/{id}/owner', function($id){
     $photo = Photo::findOrFail($id);
     return $photo->imageable;
 });
+
+//Polymorphic Many to Many 
+Route::get('post/{id}/tag', function($id){
+    $post = Post::findOrFail($id);
+
+    foreach($post->tags as $tag){
+        echo $tag->name;
+    }
+
+});
+
+Route::get('tag/{id}/post', function($id){
+    $tag = Tag::find($id);
+
+    foreach($tag->posts as $post){
+        echo $post->title;
+    }
+
+});
+
