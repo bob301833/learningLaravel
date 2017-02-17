@@ -224,3 +224,22 @@ Route::get('/user/country/{id}', function($id){
         echo $post->title;
     }
 });
+
+//Polymorphic Relations
+
+Route::get('user/photos/{id}' ,function($id){
+    $user = User::find($id);
+
+    foreach($user->photos as $photo){
+        echo $photo->path;
+    }
+});
+
+Route::get('post/photos/{id}' ,function($id){
+    $post = Post::find($id);
+
+    foreach($post->photos as $photo){
+        echo $photo->path.'<br>';
+    }
+});
+
